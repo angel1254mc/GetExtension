@@ -1,3 +1,4 @@
+
 button {
   height: 40px;
   width: auto;
@@ -22,46 +23,99 @@ body {
 button.current {
   box-shadow: 0 0 0 2px white, 0 0 0 4px black;
 }
-.term-result-window {
-  padding: 10px;
-  width: 80%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(79, 173, 204);
+button {
+    height: 40px;
+    width: auto;
+    outline: none;
+    margin: 10px;
+    background-color: #add8e6;
+    border: solid 1px black;
+    border-radius: 2px;
+}
+
+.term-result-window-0, .term-result-window-1, .term-result-window-2 {
+    padding: 10px;
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
 }
 .term-result {
-  font-size: 14px;
-  font-weight: bold;
-  color: black;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
 }
 .term-definition {
-  font-size: 10px;
-  font-weight: light;
-  color: #a9a9a9;
-  padding-bottom: 5px;
+     font-size: 10px;
+     font-weight: light;
+     color: #a9a9a9;
+     padding-bottom: 5px;
 }
 .term-standard-organization {
-  font-size: 10px;
-  font-weight: bold;
-  color: black;
+    font-size: 10px;
+    font-weight: bold;
+    color: black;
 }
 .no-results-header {
-  margin-bottom: 2px;
-  margin: 0px;
-  background-color: rgb(79, 173, 204);
+    margin-bottom: 2px;
+    margin: 0px;
 }
 hr {
-  width: 90%;
-  border: none;
-  background-color: black;
-  height: 1px;
+    width: 90%;
+    border: none;
+    background-color: black;
+    height: 1px;
 }
 .result-wrapper {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(79, 173, 204);
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    min-height: 200px;
 }
+.pagination_element {
+    display: flex;
+    flex-direction: row;
+    column-gap: 15px;
+    font-size: 15px;
+    justify-content: center;
+    align-items: center;
+  }
+  .flex-center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    justify-self: flex-end;
+  }
+  .pagination_page {
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+  }
+  .chevron_pagi {
+    height: 20px;
+  }
+  .slash {
+    font-size: 30px;
+  }
+  #total_pages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    min-width: 50px;
+    background-color: grey;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+  }
+  #current_page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    min-width: 50px;
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+  }
