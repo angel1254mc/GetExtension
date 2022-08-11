@@ -31,21 +31,21 @@ const handleMessage = (request, sender, sendResponse) => {
  * @returns {object} An object containing the searched term, the definition obtained from the db, and the standards organization that provided this definition
  */
 const fetchTermDefinition = async (search_term, page, results_per_page) => {
-
+    
     ///search_term is sanitized into a format appropriate for the a url to be used in fetch()
     //someSanitizationFunction(search_term)
     const sanitizedSearchTerm = encodeURIComponent(search_term);
     //Since we dont have a server yet, I am using the pokemon api as an example.
      const data = await fetch("https://get-server-prod.herokuapp.com/glossary?term=" + sanitizedSearchTerm + '&results_per_page=' + results_per_page + '&page=' + page) // async functionality example (fetching from pokemon database)
      const terms = await data.json(); //Wait for data to be jsonified
-     let total_pages = await fetch("https://get-server-prod.herokuapp.com/glossary/collectionsize?collection_alias=glossary&search_term=" + sanitizedSearchTerm);
+     let total_pages = await fetch("https://get-server-prod.herokuapp.com/glossary/searchsize?collection_alias=glossary&search_term=" + sanitizedSearchTerm);
      total_pages = await total_pages.json();
      console.log(terms);
     const responseObj = {
         total_pages: Math.floor(total_pages.totalElements/3) + 1,
         results: terms
     }
-    //Return data obtained
+    //Return data obtained THERE WE GO
     return responseObj;
 }
 /** 
