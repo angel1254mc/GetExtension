@@ -4,10 +4,14 @@
 .ET-logo {
   background-image: url('chrome-extension://__MSG_@@extension_id__/images/ETSVG.png');
   background-size: cover;
+  opacity: 0;
   height: 30px;
   width: 60px;
   margin-left: 10px;
   margin-top: 10px;
+  animation-duration: 0.7s;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
 }
 .grow-please {
   display: flex;
@@ -55,7 +59,7 @@
   }
   .teal-background {
     opacity: 0;
-    width: 400px;
+    width: 380px;
     height: 520px;
     background-color: rgb(40, 182, 230);
     padding: 10px;
@@ -92,6 +96,7 @@
     flex-direction: column;
     height: 100%;
     overflow-y: auto;
+    animation-duration 0.3s;
   }
   .term-fake-page-title {
     opacity: 0;
@@ -221,5 +226,41 @@
     }
     to {
       opacity: 0;
+    }
+  }
+  .fade-left {
+    animation-name: fadeLeft;
+    animation-duration: 0.3s;
+  }
+  .fade-right {
+    animation-name: fadeRight;
+    animation-duration: 0.3s;
+  }
+  @keyframes fadeLeft {
+    0% {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+    80% {
+      opacity: 0;
+      transform: translateX(-10%)
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-60%);
+    }
+  }
+  @keyframes fadeRight {
+    0% {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+    80% {
+      opacity: 0;
+      transform: translateX(10%)
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(60%);
     }
   }

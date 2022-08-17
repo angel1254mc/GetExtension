@@ -11,6 +11,17 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 })
 
+let animateOutCurrentTerm = (direction) => {
+  if (direction === 'left')
+  {
+    document.getElementsByClassName('term-fake-page')[0].classList += ' fade-left'
+  }
+  else if (direction === 'right')
+  {
+    document.getElementsByClassName('term-fake-page')[0].classList += ' fade-right'
+  }
+}
+
 let initialSetup = () => {
     const body =  document.getElementsByTagName('body')[0];
     const popupContainer = document.createElement('div');
@@ -48,7 +59,7 @@ const navigateDefinitionsPopup = (term) => {
       />
       <div class="white-overlay">
         <div class="term-fake-page">
-          <div class="ET-logo"></div>
+          <div class="ET-logo fade-in-class"></div>
           <!--<image src="images/xmark.png" id="quit-term-page" />-->
           <div class="term-fake-page-title fade-in-class">${term.TITLE}</div>
           <div class="term-fake-page-description fade-in-class">
@@ -90,7 +101,10 @@ const navigateDefinitionsPopup = (term) => {
         if (current_page + 1 <= 3)
         {
             current_page += 1;
-            navigateDefinitionsPopup(currentItems[current_page-1]);
+            animateOutCurrentTerm('left');
+            setTimeout(() => {
+              navigateDefinitionsPopup(currentItems[current_page-1]);
+            }, 300)
         }
     
     }
@@ -98,7 +112,10 @@ const navigateDefinitionsPopup = (term) => {
         if (current_page - 1 >= 1)
         {
             current_page -= 1;
-            navigateDefinitionsPopup(currentItems[current_page-1]);
+            animateOutCurrentTerm('right')
+            setTimeout(() => {
+              navigateDefinitionsPopup(currentItems[current_page-1]);
+            }, 300)
         }
     }
     document.getElementById('prev-page-button').addEventListener('click', handlePrevPage);
@@ -113,7 +130,7 @@ const constructDefinitionsPopup = (term) => {
         popup_element = `
         <div class="teal-background-2">
             <div class="white-overlay-2">
-            <div class="ET-logo"></div>
+            <div class="ET-logo fade-in-class"></div>
             <div class="term-fake-page-title-2">No Results</div>
             </div>
         </div>
@@ -175,18 +192,24 @@ const constructDefinitionsPopup = (term) => {
         }
     }
     const handleNextPage = (e) => {
-        if (current_page + 1 <= 3)
-        {
-            current_page += 1;
+      if (current_page + 1 <= 3)
+      {
+          current_page += 1;
+          animateOutCurrentTerm('left');
+          setTimeout(() => {
             navigateDefinitionsPopup(currentItems[current_page-1]);
-        }
-    
+          }, 300)
+      }
+  
     }
     const handlePrevPage = (e) => {
         if (current_page - 1 >= 1)
         {
             current_page -= 1;
-            navigateDefinitionsPopup(currentItems[current_page-1]);
+            animateOutCurrentTerm('right')
+            setTimeout(() => {
+              navigateDefinitionsPopup(currentItems[current_page-1]);
+            }, 300)
         }
     }
     if (term)
