@@ -1,17 +1,114 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <link rel="stylesheet" href="button.css">
-</head>
+    <head>
+        <link rel="stylesheet" href="options.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+              <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+              <link
+                href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+                rel="stylesheet"
+              />
+    </head>
 
-<body>
-    <div id="buttonDiv">
-    </div>
-    <div>
-        <p>Choose a different background color!</p>
-    </div>
+    <body>
+        <div class="main_page_container">
+            <div class="sidebar">
+                <div class="sidebar_content_top">
+                    <div class="main_logo">
+                        <img src="./images/ETSVG.png" width="20%" height="auto"/>
+                        <div>GET APP</div>
+                    </div>
+                    <div class="sidebar_item">
+                        General
+                    </div>
+                    <div class="sidebar_item">
+                        Request Terms
+                    </div>
+                    <div class="sidebar_item">
+                        Accessibility
+                    </div>
+                </div>
+                <div class="sidebar_content_bottom">
+
+                </div>
+            </div>
+            <div class="main-content">
+                <div class="main-content-header">
+                    General Settings
+                </div>
+
+                <div class="main-content-positioner">
+                <div class="main-content-container">
+                    <section class="highlight-settings">
+                        <div class="highlight-settings-header">
+                            Highlight Settings
+                        </div>
+                        <div class="highlight-settings-checkbox">
+                            <input type="checkbox" id="highlight-auto" name="highlight-auto" value="">
+                            <label for="vehicle1"> Enable automatic search on term highlight </label>
+                        </div>
+                        <div class="highlight-settings-header">
+                            Page Blacklist
+                        </div>
+                        <div class="highlight-settings-subtitle">
+                            input pages where automatic search on highlight should not be enabled
+                        </div>
+                        <div class="highlight-settings-blacklist">
+                            <textarea class="blacklist-textarea""></textarea>
+                        </div>
+                    </section>
+                    <section class="filter-settings">
+                        <div class="filter-settings-header">
+                            Filter Settings
+                        </div>
+                        <div class="filter-settings-group">
+                            <div class="filter-settings-primary-checkbox">
+                                <div class="checkbox-element selected">
+                                    <input type="checkbox" id="filter-org" name="filter-org" value="">
+                                    <label for="vehicle1"> Filter by Defining Organization </label>
+                                </div>
+                                <div class="checkbox-element">
+                                    <input type="checkbox" id="filter-field" name="filter-field" value="">
+                                    <label for="vehicle1"> Filter by Field </label>
+                                </div>
+                                <div class="checkbox-element">
+                                    <input type="checkbox" id="filter-acronyms" name="filter-acronyms" value="">
+                                    <label for="vehicle1"> Only Acronyms </label>
+                                </div>
+                                <div class="checkbox-element">
+                                    <input type="checkbox" id="filter-terms" name="filter-terms" value="">
+                                    <label for="vehicle1"> Only Terms </label>
+                                </div>
+                            </div>
+                            <div class="filter-settings-secondary-checkbox">
+                                <div class="checkbox-element">
+                                    <input type="checkbox" id="filter-org" name="filter-org" value="">
+                                    <label for="vehicle1"> Filter by Defining Organization </label>
+                                </div>
+                                <div class="checkbox-element">
+                                    <input type="checkbox" id="filter-field" name="filter-field" value="">
+                                    <label for="vehicle1"> Filter by Field </label>
+                                </div>
+                                <div class="checkbox-element">
+                                    <input type="checkbox" id="filter-acronyms" name="filter-acronyms" value="">
+                                    <label for="vehicle1"> Only Acronyms </label>
+                                </div>
+                                <div class="checkbox-element">
+                                    <input type="checkbox" id="filter-terms" name="filter-terms" value="">
+                                    <label for="vehicle1"> Only Terms </label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="save-settings-button">
+                        <button id="save-button">Save</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
     <script src="options.js"></script>
-</body>
-
 </html>
