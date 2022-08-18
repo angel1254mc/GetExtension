@@ -36,7 +36,7 @@
     animation-name: fadeInUp;
   }
   .teal-background-2 {
-    background-color: rgb(40, 182, 230);
+    background-color: #4397B4;
     padding: 10px;
     border-radius: 5px;
     animation-duration: 0.7s;
@@ -61,7 +61,7 @@
     opacity: 0;
     width: 380px;
     height: 520px;
-    background-color: rgb(40, 182, 230);
+    background-color: #4397B4;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -230,11 +230,11 @@
   }
   .fade-left {
     animation-name: fadeLeft;
-    animation-duration: 0.3s;
+    animation-duration: 0.4s;
   }
   .fade-right {
     animation-name: fadeRight;
-    animation-duration: 0.3s;
+    animation-duration: 0.4s;
   }
   @keyframes fadeLeft {
     0% {

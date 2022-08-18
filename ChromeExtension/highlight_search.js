@@ -191,6 +191,7 @@ const constructDefinitionsPopup = (term) => {
             document.getElementsByClassName('fake-popup-container')[0].innerHTML="";
         }
     }
+
     const handleNextPage = (e) => {
       if (current_page + 1 <= 3)
       {
@@ -202,6 +203,7 @@ const constructDefinitionsPopup = (term) => {
       }
   
     }
+
     const handlePrevPage = (e) => {
         if (current_page - 1 >= 1)
         {
@@ -212,11 +214,13 @@ const constructDefinitionsPopup = (term) => {
             }, 300)
         }
     }
+
     if (term)
     {
         document.getElementById('prev-page-button').addEventListener('click', handlePrevPage);
         document.getElementById('next-page-button').addEventListener('click', handleNextPage);
     }
+    
     window.addEventListener('mouseup', beginRemovePopup);
 }
 

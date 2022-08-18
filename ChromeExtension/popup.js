@@ -227,7 +227,7 @@ const handlePrevPage = async () => {
             let sent = chrome.runtime.sendMessage({
                 searchTerm: current_search,
                 page: current_page,
-                results_per_page: parseInt(search_options_json['results_per_page'])
+                results_per_page: 3
             })
             sent.then(handleResponse, handleError)
         }   
@@ -248,7 +248,7 @@ const handleSearchButtonActions = async () => {
             let sent = chrome.runtime.sendMessage({
                 searchTerm: current_search,
                 page: 1,
-                results_per_page: parseInt(search_options_json['results_per_page'])
+                results_per_page: 3,
             })
             sent.then(handleResponse, handleError)
         }   
