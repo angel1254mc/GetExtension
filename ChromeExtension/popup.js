@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             currentItems = acronymObj;;
             total_pages = 1;
             current_page = 1;
-            constructPage(current_page, total_pages, currentItems);
+            constructPage(current_page, total_pages, currentItems, false);
             sendResponse({completed: true})
         })
     }
@@ -125,7 +125,7 @@ const constructPagination = (current_page, total_pages) => {
     })
 }
 
-const constructPage = (current_page, total_pages, page_items = []) => {
+const constructPage = (current_page, total_pages, page_items = [], is_external = false) => {
     //Empty the page
     document.getElementsByClassName('result-wrapper')[0].innerHTML = "";
     //assume that page_items is an array of term objects
@@ -136,7 +136,7 @@ const constructPage = (current_page, total_pages, page_items = []) => {
         // Identify each of the term windows with the index of the term, which then helps for setting event listeners on click
         document.getElementsByClassName("result-wrapper")[0].innerHTML += 
         `
-        <div class="term-result-window"> 
+        <div class="term-result-window ${is_external ? 'external' : ''}"> 
             <div class="term-result">
                 ${title}
             </div>
