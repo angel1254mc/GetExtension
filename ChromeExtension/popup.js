@@ -4,6 +4,7 @@ let currentItems = []; //Empty Object
 let current_search = null;
 let current_item = null;
 const previous_page = null;
+const external_search = true;
 //Watch this gameplay
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.recipient === "popup-script")
@@ -279,7 +280,6 @@ const handleResponse = async (message) => {
         return;
     total_pages = message.total_pages;
     currentItems = message.results;
-
     constructPage(current_page, total_pages, currentItems)
 }
 const handleError = (err) => {
