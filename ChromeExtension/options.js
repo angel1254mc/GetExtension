@@ -1,52 +1,25 @@
-let page = document.getElementById("buttonDiv");
-let selectedClassName = "current";
-const presetButtonColors = ["#3aa757", "#e8453c", "#f9bb2d", "#4688f1"];
+
 let currentSettings;
+let definitionsUniqueIndex = 0;
 // Reacts to a button click by marking the selected button and saving
 // the selection
+const cleanupAllVariables = () => {
+    currentSettings = null;
+    definitionsUniqueIndex = 0;
+}
+const newFocusPage = (focus) => {
+    document.querySelector('#general-button').classList = 'sidebar_item ';
+    document.querySelector('#request-terms-button').classList = 'sidebar_item ';
+    document.querySelector('#accessibility-button').classList = 'sidebar_item ';
+    document.querySelector(`#${focus}`).classList = 'sidebar_item selected_page';
+}
 const displayUpdateError = () => {
     console.log("Something happened while updating settings!")
 }
 const displayUpdateSuccess = () => {
     console.log("Update settings successful")
 }
-function handleButtonClick(event) {
-    // Remove styling from the previously selected color
-    let current = event.target.parentElement.querySelector(
-        `.${selectedClassName}`
-    );
-    if (current && current !== event.target) {
-        current.classList.remove(selectedClassName);
-    }
 
-    // Mark the button as selected
-    let color = event.target.dataset.color;
-    event.target.classList.add(selectedClassName);
-    chrome.storage.sync.set({ color });
-}
-
-// Add a button to the page for each supplied color
-function constructOptions(buttonColors) {
-    chrome.storage.sync.get("color", (data) => {
-        let currentColor = data.color;
-        // For each color we were provided…
-        for (let buttonColor of buttonColors) {
-            // …create a button with that color…
-            let button = document.createElement("button");
-            button.dataset.color = buttonColor;
-            button.style.backgroundColor = buttonColor;
-
-            // …mark the currently selected color…
-            if (buttonColor === currentColor) {
-                button.classList.add(selectedClassName);
-            }
-
-            // …and register a listener for when that button is clicked
-            button.addEventListener("click", handleButtonClick);
-            page.appendChild(button);
-        }
-    });
-}
 const parseBlacklist = (list) => {
     return list.split(',');
 }
@@ -130,6 +103,8 @@ constructAccessibilitySettingsJSON = async () => {
  * 
  */
 const constructGeneralSettings = () => {
+    cleanupAllVariables();
+    newFocusPage('general-button');
     let generalSettingsPage = `
         <div class="main-content-header fade-in">
             General Settings
@@ -216,10 +191,12 @@ const constructGeneralSettings = () => {
      })
 }
 const constructTermRequest = () => {
+    cleanupAllVariables();
+    newFocusPage('request-terms-button');
     let termRequestsPage = `       
     <div class="main-content-header fade-in">
     Request Term
-</div>
+    </div>
 
 <div class="main-content-positioner fade-in">
     <div class="main-content-container">
@@ -230,33 +207,10 @@ const constructTermRequest = () => {
         <div  class="requested-term-definitions">
             <div class="requested-term-header">Definitions(s)</div>
             <div class="requested-definitions-button">
-                <button>Add More + </button>
+                <button id="add-more-cards">Add More + </button>
             </div>
             <div class="requested-definitions-cards">
-                <div class="definition-card">
-                    <!--Ideally, these definition cards would be of fixed width-->
-                    <div class="definition-card-header">Meaning 1</div>
-                    <div class="definition-card-def-group">
-                        <div class="group-header">Definition:</div>
-                        <textarea id="definition-input-1" class="group-input-textarea"></textarea>
-                    </div>
-                    <div class="definition-card-source-group">
-                        <div class="group-header">Source:</div>
-                        <input id="source-input-1" class="group-input"/>
-                    </div>
-                </div>
-                <div class="definition-card">
-                    <!--Ideally, these definition cards would be of fixed width-->
-                    <div class="definition-card-header">Meaning 1</div>
-                    <div class="definition-card-def-group">
-                        <div class="group-header">Definition:</div>
-                        <textarea id="definition-input-1" class="group-input-textarea"></textarea>
-                    </div>
-                    <div class="definition-card-source-group">
-                        <div class="group-header">Source:</div>
-                        <input id="source-input-1" class="group-input"/>
-                    </div>
-                </div>
+                
             </div>
 
             <div class="notification-options">
@@ -271,7 +225,7 @@ const constructTermRequest = () => {
                     <div class="notification-options-subtitle">
                         Email for notification:
                     </div>
-                    <input id="email-notification" value="example@email.com">
+                    <input id="email-notification" placeholder="example@email.com">
                 </div>
             </div>
             <div class="submit-row">
@@ -283,7 +237,13 @@ const constructTermRequest = () => {
 `
 
     document.getElementsByClassName('main-content')[0].innerHTML = termRequestsPage;
+    createNewDefinitionCard(0);
+    document.getElementById('add-more-cards').addEventListener('click', createNewDefinitionCard);
 }
+
+
+
+
 const constructAccessiblityPage = () => {
     let accessibilitySettingsPage = `
     `
@@ -329,3 +289,42 @@ const filterByOrg = `
     </div>
 </div>
 `
+const createNewDefinitionCard = () => {
+    const currElements = document.getElementsByClassName('requested-definitions-cards')[0].children.length
+    const index = definitionsUniqueIndex;
+    const cardHTML = `
+    <div class="definition-card" data-index-number="${index+1}" id="definition-card-${index+1}">
+        <!--definition card # ${currElements + 1}-->
+        <div class="definition-card-header">
+            <div>Meaning ${currElements + 1}</div>
+            <div id="remove-button-${index+1}" data-index-number="${index+1}" class="remove-button">Remove</div>
+        </div>
+        <div class="definition-card-def-group">
+            <div class="group-header">Definition:</div>
+            <textarea id="definition-input-${index+1}" class="group-input-textarea"></textarea>
+        </div>
+        <div class="definition-card-source-group">
+            <div class="group-header">Source:</div>
+            <input id="source-input-${index+1}" class="group-input"/>
+        </div>
+    </div>
+    `
+    definitionsUniqueIndex++;
+    /**
+     * Technique I got from an article
+     */
+    const placeholder = document.createElement("div");
+    placeholder.innerHTML = cardHTML;
+    const element = placeholder.firstElementChild;
+
+    document.getElementsByClassName('requested-definitions-cards')[0].appendChild(element)
+    document.getElementById(`remove-button-${index+1}`).addEventListener('click', (e) => {
+        console.log("Attempted to delete definition card");
+        deleteDefinitionCard(e.target)
+    })
+}
+const deleteDefinitionCard = (target) => {
+   const num = parseInt(target.getAttribute('data-index-number'))
+   let cardToDelete = document.querySelector(`#definition-card-${num}`);
+   document.getElementsByClassName('requested-definitions-cards')[0].removeChild(cardToDelete);
+}

@@ -372,6 +372,7 @@ body {
     border: 1px solid lightgrey;
     margin-bottom: 10px;
     font-size: 16px;
+    padding-left: 15px;
 
   }
   .requested-definitions-button {
@@ -422,6 +423,8 @@ body {
     margin-bottom: 10px;
     font-weight: bold;
     color: black;    
+    display: flex;
+    justify-content: space-between;
     
 }
 .definition-card-def-group {
@@ -436,15 +439,15 @@ body {
 }
 .group-input {
     margin-left: 20px;
-    width: 200px;
+    width: 250px;
     height: 30px;
     border: 1px solid #8E8C8C;
     border-radius: 5px;
 }
 .group-input-textarea {
     margin-left: 20px;
-    width: 200px;
-    height: 150px;
+    width: 250px;
+    height: 120px;
     border: 1px solid #8E8C8C;
     border-radius: 5px;
 }
@@ -476,6 +479,7 @@ body {
 }
 
 #email-notification {
+    padding-left: 15px;
     height: 30px;
     width: 50%;
     border: 1px solid lightgrey;
