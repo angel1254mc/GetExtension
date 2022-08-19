@@ -250,7 +250,7 @@ const constructTermRequest = () => {
         <div  class="requested-term-definitions">
             <div class="requested-term-header">Definitions(s)</div>
             <div class="requested-definitions-button">
-                <button id="add-more-cards">Add More + </button>
+                <button id="add-more-cards" disabled>Add More Definitions - Coming Soon!</button>
             </div>
             <div class="requested-definitions-cards">
                 
@@ -282,6 +282,7 @@ const constructTermRequest = () => {
     document.getElementsByClassName('main-content')[0].innerHTML = termRequestsPage;
     createNewDefinitionCard(0);
     document.getElementById('add-more-cards').addEventListener('click', createNewDefinitionCard);
+    //Uncomment this when multiple definitions are implemented
     document.getElementById('submit-button').addEventListener('click', handleSubmitRequest);
 }
 
@@ -289,8 +290,10 @@ const constructTermRequest = () => {
 
 
 const constructAccessiblityPage = () => {
+    cleanupAllVariables();
+    newFocusPage('accessibility-button');
     let accessibilitySettingsPage = `
-    <div>Coming Soon!</div>
+    <div class="accessibility-main">Coming Soon!</div>
     `
 
     document.getElementsByClassName('main-content')[0].innerHTML = accessibilitySettingsPage;
@@ -376,9 +379,12 @@ const deleteDefinitionCard = (target) => {
 const handleSubmitRequest = () => {
     const emailIncluded = document.querySelector(`#enable-emails`).checked;
     const email = document.querySelector('#email-notification').value;
+    let REQUESTER_EMAIL ='';
     if (emailIncluded && !checkEmailValidity(email))
         return displayUpdateError('Email Notification enabled, but email is invalid!');
     let DESCRIPTION = [];
+    if (emailIncluded)
+        REQUESTER_EMAIL = email;
     let TITLE = document.getElementById('term-title').value;
     if (TITLE.length < 1)
         return displayUpdateError('Title of Term is required!');
@@ -398,9 +404,11 @@ const handleSubmitRequest = () => {
     let ABBREVIATIONS =  [];
     const termObj = {
         TITLE: TITLE,
-        DESCRIPTION: DESCRIPTION,
+        DESCRIPTION: DESCRIPTION[0],
         ABBREVIATIONS: ABBREVIATIONS,
+        REQUESTER_EMAIL: REQUESTER_EMAIL,
     }
+
     displayUpdateSuccess("Your term has been successfully submitted!");
 
 

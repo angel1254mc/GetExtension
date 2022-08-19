@@ -237,5 +237,16 @@ const handleError = (err) => {
     console.log("The error is the following: " + err);
 }
 
-document.addEventListener('mouseup', (e) => getText(e));
-initialSetup();
+chrome.storage.sync.get(['general_settings'], function(result) {
+  if (result)
+    {
+        //Parse the string that was obtained into a json
+        let settings = JSON.parse(result.general_settings);
+        if (settings.highlightEnabled === 1)
+        {
+          document.addEventListener('mouseup', (e) => getText(e));
+          initialSetup();
+        }
+        
+    }
+});
