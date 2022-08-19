@@ -58,13 +58,16 @@ body {
 }
 .main_logo {
     font-size: 36px;
-    margin-top: 40px;
+    margin-top: 15px;
     margin-bottom: 20px;
     row-gap: 10px;
     display: flex;
     flex-direction: column;
     align-items: start;
     padding-left: 25px;
+}
+.main_logo > img {
+    margin-bottom: 40px;
 }
 .admin_container {
     width: 100vw;
@@ -507,4 +510,64 @@ body {
 }
 .submit-button:hover {
     background-color: #730d26;
+}
+.alert-card-container {
+    background: rgb(147, 187, 149);
+    background: linear-gradient(
+      135deg,
+      rgba(147, 187, 149, 1) 0%,
+      rgba(2, 142, 32, 1) 100%
+    );
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 40px;
+    min-width: 300px;
+    color: white;
+    font-size: 14px;
+    height: 80px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgb(147, 187, 149);
+    position: absolute;
+    left: 100px;
+    top: 80vh;
+    padding: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    z-index:  1000;
+}
+.alert-card-container.error.fadeIn {
+    background: rgb(194,87,95);
+    background: linear-gradient(135deg, rgba(194,87,95,1) 0%, rgba(142,2,2,1) 100%);
+    position: absolute;
+}
+.alert-card-container.success.fadeIn  {
+    animation-name: fadeIn;
+    animation-delay: 0;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+.alert-card-container.success.fadeOut  {
+    opacity: 1;
+    animation-name: fadeOut; 
+    animation-delay: 0;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+.alert-card-container.error.fadeIn {
+    animation-name: fadeIn;
+    animation-delay: 0;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+.alert-card-container.error.fadeOut{
+    background: rgb(194,87,95);
+    background: linear-gradient(135deg, rgba(194,87,95,1) 0%, rgba(142,2,2,1) 100%);
+    opacity: 1;
+    animation-name: fadeOut; 
+    animation-delay: 0;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
 }

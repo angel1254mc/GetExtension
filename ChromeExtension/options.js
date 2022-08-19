@@ -13,11 +13,54 @@ const newFocusPage = (focus) => {
     document.querySelector('#accessibility-button').classList = 'sidebar_item ';
     document.querySelector(`#${focus}`).classList = 'sidebar_item selected_page';
 }
-const displayUpdateError = () => {
-    console.log("Something happened while updating settings!")
+const displayUpdateError = (err) => {
+    const alertHTML = `
+    <div class="alert-card-container error fadeIn">
+      <div class="error">Error</div>
+      <div class="error-message">
+        ${err}
+      </div>
+    </div>
+    ` 
+    /**
+     * Technique I got from an article
+     */
+      const placeholder = document.createElement("div");
+      placeholder.innerHTML = alertHTML;
+      const element = placeholder.firstElementChild;
+
+      document.getElementsByClassName('main_page_container')[0].appendChild(element);
+      setTimeout(() => {
+        element.classList = 'alert-card-container error fadeOut';
+        setTimeout(() => {
+            document.getElementsByClassName('main_page_container')[0].removeChild(element);
+          }, 1000)
+      }, 3000)
+  
 }
-const displayUpdateSuccess = () => {
-    console.log("Update settings successful")
+const displayUpdateSuccess = (message) => {
+    const alertHTML = `
+    <div class="alert-card-container success fadeIn">
+      <div class="error">Success</div>
+      <div class="message">
+        ${message}
+      </div>
+    </div>
+    ` 
+    /**
+     * Technique I got from an article
+     */
+      const placeholder = document.createElement("div");
+      placeholder.innerHTML = alertHTML;
+      const element = placeholder.firstElementChild;
+
+      document.getElementsByClassName('main_page_container')[0].appendChild(element);
+      setTimeout(() => {
+        element.classList = 'alert-card-container success fadeOut';
+        setTimeout(() => {
+            document.getElementsByClassName('main_page_container')[0].removeChild(element);
+          }, 1000)
+      }, 3000)
 }
 
 const parseBlacklist = (list) => {
@@ -182,11 +225,11 @@ const constructGeneralSettings = () => {
         updateSettings('general')
         .then((success) => { //Updating settings operation succeeds
             if (success)
-                displayUpdateSuccess();
+                displayUpdateSuccess("Settings successfully updated!");
         })
         .catch( (err) => { //Updating settings operation fails
             console.log(err);
-            displayUpdateError()
+            displayUpdateError("Something went wrong internally, settings could not be updated")
         });
      })
 }
@@ -198,11 +241,11 @@ const constructTermRequest = () => {
     Request Term
     </div>
 
-<div class="main-content-positioner fade-in">
+    <div class="main-content-positioner fade-in">
     <div class="main-content-container">
         <div class="requested-term-header">
             <div>Term Title</div>
-            <input/>
+            <input id="term-title"/>
         </div>
         <div  class="requested-term-definitions">
             <div class="requested-term-header">Definitions(s)</div>
@@ -239,6 +282,7 @@ const constructTermRequest = () => {
     document.getElementsByClassName('main-content')[0].innerHTML = termRequestsPage;
     createNewDefinitionCard(0);
     document.getElementById('add-more-cards').addEventListener('click', createNewDefinitionCard);
+    document.getElementById('submit-button').addEventListener('click', handleSubmitRequest);
 }
 
 
@@ -246,6 +290,7 @@ const constructTermRequest = () => {
 
 const constructAccessiblityPage = () => {
     let accessibilitySettingsPage = `
+    <div>Coming Soon!</div>
     `
 
     document.getElementsByClassName('main-content')[0].innerHTML = accessibilitySettingsPage;
@@ -327,4 +372,48 @@ const deleteDefinitionCard = (target) => {
    const num = parseInt(target.getAttribute('data-index-number'))
    let cardToDelete = document.querySelector(`#definition-card-${num}`);
    document.getElementsByClassName('requested-definitions-cards')[0].removeChild(cardToDelete);
+}
+const handleSubmitRequest = () => {
+    const emailIncluded = document.querySelector(`#enable-emails`).checked;
+    const email = document.querySelector('#email-notification').value;
+    if (emailIncluded && !checkEmailValidity(email))
+        return displayUpdateError('Email Notification enabled, but email is invalid!');
+    let DESCRIPTION = [];
+    let TITLE = document.getElementById('term-title').value;
+    if (TITLE.length < 1)
+        return displayUpdateError('Title of Term is required!');
+    let listOfMeanings = document.getElementsByClassName('requested-definitions-cards')[0].children;
+    for (let i = 0; i < listOfMeanings.length; i++)
+    {
+        const currMeaning = listOfMeanings[i];
+        const meaningObject = {};
+        const definition = currMeaning.getElementsByTagName('textarea')[0].value;
+        const source = currMeaning.getElementsByTagName('input')[0].value;
+        if (definition.length < 1 || source.length < 1)
+            return displayUpdateError("All Definitions and Sources must have a value, otherwise remove the definition");
+        meaningObject.MEANING = definition;
+        meaningObject.SOURCE = source;
+        DESCRIPTION.push(meaningObject);
+    }
+    let ABBREVIATIONS =  [];
+    const termObj = {
+        TITLE: TITLE,
+        DESCRIPTION: DESCRIPTION,
+        ABBREVIATIONS: ABBREVIATIONS,
+    }
+    displayUpdateSuccess("Your term has been successfully submitted!");
+
+
+}
+/** https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
+ * Ripped straight out of stackoverflow
+ * @param {string} email 
+ * @returns true if email is valid, otherwise false 
+ */
+const checkEmailValidity = (email) => {
+    return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
 }
