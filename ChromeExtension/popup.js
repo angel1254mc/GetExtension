@@ -40,6 +40,7 @@ const fetchAcronymApi = async (search_term) => {
     }
     return results;
 }
+
 const constructResultsNotFoundComponent = () => {
     document.getElementsByClassName('no-results-wrapper')[0].innerHTML='';
     if (current_page != total_pages || current_item)
@@ -128,24 +129,24 @@ const constructPagination = (current_page, total_pages) => {
 
 const constructPage = (current_page, total_pages, page_items = [], is_external = false) => {
     //Empty the page
-    document.getElementsByClassName('result-wrapper')[0].innerHTML = "";
+    document.getElementsByClassName('search-result-column')[0].innerHTML = "";
     //assume that page_items is an array of term objects
     page_items.map((term, index) => {
         let title = term.TITLE;
-        let definition_or_abbreviations = term.DESCRIPTION ? (term.DESCRIPTION.length > 45 ? term.DESCRIPTION.substr(0,45)  + '...': term.DESCRIPTION) : term.ABBREVIATIONS;
+        let definition_or_abbreviations = term.DESCRIPTION ? (term.DESCRIPTION.length > 45 ? term.DESCRIPTION.substr(0,45) : term.DESCRIPTION) : term.ABBREVIATIONS;
         let standards = term.SOURCE ? term.SOURCE : "";
         // Identify each of the term windows with the index of the term, which then helps for setting event listeners on click
-        document.getElementsByClassName("result-wrapper")[0].innerHTML += 
+        document.getElementsByClassName("search-result-column")[0].innerHTML += 
         `
         <div class="term-result-window ${is_external ? 'external' : ''}"> 
             <div class="term-result">
                 ${title}
             </div>
-            <div class="term-definition">
-                ${definition_or_abbreviations}
-            </div>
             <div class="term-standard-organization">
                 ${standards}
+            </div>
+            <div class="term-definition">
+                ${definition_or_abbreviations}
             </div>
         </div> 
 
@@ -239,7 +240,7 @@ const handleSearchButtonActions = async () => {
         let search_options_json = JSON.parse(search_options);
 
         //setting global values
-        current_search = document.getElementById("term").value;
+        current_search = document.getElementById("search_bar").value;
         current_page = 1;
         total_pages = 1;
 
@@ -262,14 +263,6 @@ const leaveDetailedTermWindow = () => {
 }
 
 
-
-//First, grab the button element from the popup dom
-const getButton = document.getElementById("getButton");
-// Then, add an event listener to the button so that when the button is clicked-> send the data to the content script
-getButton.addEventListener("click", () => {
-    handleSearchButtonActions();
-})
-
 /**
  * @note @func handleResponse has been restructured and now handles data differently
  * @param {object} message 
@@ -285,3 +278,12 @@ const handleResponse = async (message) => {
 const handleError = (err) => {
     console.log("Error ocurred: " + err);
 }
+
+//First, grab the button element from the popup dom
+const getSearch = document.getElementById("search_bar");
+// Then, add an event listener to the button so that when the button is clicked-> send the data to the content script
+getSearch.addEventListener("keyup", (e) => {
+    console.log(e.key);
+    if (e.key === "Enter")
+    handleSearchButtonActions();
+})

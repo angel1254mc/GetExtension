@@ -1,23 +1,78 @@
+<!DOCTYPE html>
 <html>
     <head> 
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="highlight_search.css">
         <link rel="stylesheet" href="popup.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+        />
     </head>
-<body class="">
-    <div class="term-search-window">
-        <h1 class="header"> GET </h1>
-        Term: <input type="text" name="name" id="term">
-        <button id="getButton" type="button">GET IT</button>
-        <!--<p class="error"></p>-->
-        <div class="result-wrapper">
+    <body>
+        <div class="teal-background-popup opaque">
+            <div class="white-overlay">
+              <div class="term-fake-page">
+                  
+                <div class="GET-row">
+                      
+                    <div class="GET-title">GET</div>
+                    <div class="ET-logo fade-in-class">
+      
+                    </div>
+                </div>
+                  
+                <div class="GET-search-row">
+                    <input class="GET-search" placeholder="Search" id="search_bar" type="text" name="name" id="term">
+                </div>
+                  <!--This is where search results start-->
+                <div class="search-result-column">
+                    <div class="term-result-window"> 
+                        <div class="term-result">
+                            ${title}
+                        </div>
+                        <div class="term-definition">
+                            ${definition_or_abbreviations}
+                        </div>
+                        <div class="term-standard-organization">
+                            ${standards}
+                        </div>
+                    </div>  
+                    <div class="term-result-window"> 
+                        <div class="term-result">
+                            ${title}
+                        </div>
+                        <div class="term-definition">
+                            ${definition_or_abbreviations}
+                        </div>
+                        <div class="term-standard-organization">
+                            ${standards}
+                        </div>
+                    </div>  
+                    <div class="term-result-window"> 
+                        <div class="term-result">
+                            ${title}
+                        </div>
+                        <div class="term-definition">
+                            ${definition_or_abbreviations}
+                        </div>
+                        <div class="term-standard-organization">
+                            ${standards}
+                        </div>
+                    </div>  
+                </div>
+              <!--This is where search results end!-->
+              </div>
+          </div>
+          <div class="pagination-group">
+            <div id="prev-page-button">Prev</div>
+            <div id="page-input">1/3</div>
+            <div id="next-page-button">Next</div>
+          </div>
         </div>
-        <div class="no-results-wrapper"></div>
-        <div class="pagination-element" id="pagination"></div>
-    </div>
-    <center><img src="./images/etLogo.webp" width = "200" height = "125"></center>
-
+    </body>
     <script src="popup.js"></script>
-</body>
 
 </html>
 

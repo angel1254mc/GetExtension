@@ -3,12 +3,10 @@
 }
 .ET-logo {
   background-image: url('chrome-extension://__MSG_@@extension_id__/images/ETSVG.png');
-  background-size: cover;
+  background-size: 60px 30px;
   opacity: 0;
   height: 30px;
   width: 60px;
-  margin-left: 10px;
-  margin-top: 10px;
   animation-duration: 0.7s;
   animation-delay: 0s;
   animation-fill-mode: forwards;
@@ -48,6 +46,7 @@
     padding: 10px;
     background-image: url('chrome-extension://__MSG_@@extension_id__/images/hexagons.png');
     background-repeat: no-repeat;
+    background-size: cover;
   }
   .term-fake-page-title-2 {
     color: black;
@@ -71,7 +70,6 @@
     animation-fill-mode: forwards;
   }
   .pagination-group {
-    margin-top: 5px;
     display: flex;
     justify-self: flex-end;
     align-items: center;
@@ -85,7 +83,7 @@
     background-color: white;
     background-image: url('chrome-extension://__MSG_@@extension_id__/images/hexagons.png');
     background-repeat: no-repeat;
-    background-size: 400px 460px;
+    background-size: cover;
     border-radius: 10px;
     height: 530px;
     box-shadow: 0px 4px rgba(0, 0, 0, 0.25);

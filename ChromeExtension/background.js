@@ -57,12 +57,12 @@ const fetchTermDefinition = async (search_term, page, results_per_page) => {
        total_pages: Math.floor(total_pages.totalElements/3) + 1,
        results: terms
     }
-    if (!terms || terms.length < 1)
+    /**if (!terms || terms.length < 1)
     {
         await useAcronymAPI(search_term, 'popup-script');
         responseObj = {acronymAPI: true};
-    }
-    //Return data obtained THERE WE GO
+    }*/
+    //Return data obtained
     return responseObj;
 }
 const sanitizeSelectedText = (text) => {
